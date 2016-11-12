@@ -9,6 +9,7 @@ import {FindPetComponent} from './findpet.component';
 import {PostPetComponent} from './postpet.component';
 import {RegisterComponent} from './register.component';
 import {LoginComponent} from './login.component';
+import {LoginService} from './model/login.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import {LoginComponent} from './login.component';
       {path: 'login', component: LoginComponent}
     ])
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

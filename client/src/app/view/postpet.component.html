@@ -1,5 +1,5 @@
-<h1>Post a pet</h1>
-<h2>Pet Info</h2>
+<h2>Post a pet</h2>
+<h3>Pet Info</h3>
 <table>
   <tr>
     <td><label>Name</label></td>
@@ -19,4 +19,11 @@
     <td><label>Photo</label></td>
     <td><input [(ngModel)]="pet.photo"/></td>
   </tr>
+  <tr>
+    <td></td>
+    <td>
+      <button (click)="postPet()">Post</button>
+    </td>
+  </tr>
 </table>
+<div class="message">{{message}}</div>
