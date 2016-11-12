@@ -27,6 +27,7 @@ export class FindPetComponent {
   }
 
   changeSpecies(species) {
+    this.currentIndex = 0;
     this.listings = this.totalListings.filter(pet => pet.species == species);
   }
 }

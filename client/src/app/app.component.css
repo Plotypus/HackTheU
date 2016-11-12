@@ -1,6 +1,70 @@
+.top-bar {
+  text-align: center;
+  padding-top: 150px;
+  width: 100%;
+  height: 200px;
+  background: #80BD9E url("app/view/pets.png");
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  margin-bottom: 10px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  color: white;
+}
+
+.title {
+  color: white;
+  font-size: 50px;
+  background-color: #404040;
+  border-radius: 50px;
+  padding: 25px 100px 25px 100px;
+}
+
+.species-select {
+  border-radius: 10px;
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+nav {
+  background-color: #80BD9E;
+  padding: 5px 0 5px 5px;
+  border-radius: 2px;
+}
+
+input {
+
+}
+
+button {
+  color: white;
+  background-color: #404040;
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+}
+
 .pet-td {
   min-width: 125px;
   padding: 0 10px 0 10px;
+}
+
+.profile-image {
+  width: 300px;
 }
 
 .message {
