@@ -13,7 +13,7 @@ object BasicServer {
 
     val databaseIP = args(0)
     val database = args(1)
-    val mongoDatabase = new DatabaseInstance(databaseIP, database)
+    //val mongoDatabase = new DatabaseInstance(databaseIP, database)
 
 
     implicit val actorSystem = ActorSystem("hacktheu-system")
@@ -27,6 +27,20 @@ object BasicServer {
     val route = {
       pathEndOrSingleSlash {
         complete("under construction")
+      } ~
+      path("users" / IntNumber) { userID =>
+        pathEnd {
+          get {
+            complete("users / " + userID)
+          }
+        }
+      } ~
+      path("pets" / IntNumber) { userID =>
+        pathEnd {
+          get {
+            complete("pets / " + userID)
+          }
+        }
       }
     }
 
@@ -35,7 +49,7 @@ object BasicServer {
     StdIn.readLine()
 
     import actorSystem.dispatcher
-
+    //mongoDatabase.closeConnection()
     binding.flatMap(_.unbind()).onComplete(_ => actorSystem.shutdown())
     println("Server is shut down...")
   }
