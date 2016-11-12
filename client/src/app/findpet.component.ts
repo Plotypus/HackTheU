@@ -8,7 +8,9 @@ import {Pet} from "./model/pet";
   styleUrls: ['./app.component.css'],
   providers: [PetService]
 })
+
 export class FindPetComponent {
+
   user: string;
   species: string;
 
