@@ -22,6 +22,7 @@ project/plugins/project/
 
 # IntelliJ
 .idea/
+*.iml
 
 # macoS
 .DS_Store
