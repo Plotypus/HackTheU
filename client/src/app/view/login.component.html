@@ -3,7 +3,9 @@
     <button (click)="logout()">Logout</button>
   </div>
   <div *ngSwitchCase="false">
+    <div>Username</div>
     <input [(ngModel)]="username"/>
+    <div>Password</div>
     <input [(ngModel)]="password"/>
     <button (click)="login()">Login</button>
   </div>

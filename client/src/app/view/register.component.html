@@ -1,1 +1,8 @@
-<h2>Register</h2>
+<div>Username</div>
+<input [(ngModel)]="newUser.username"/>
+<div>Password</div>
+<input [(ngModel)]="newUser.password"/>
+<div>Location</div>
+<input [(ngModel)]="newUser.location"/>
+<button (click)="register()">Register</button>
+<div>{{message}}</div>
