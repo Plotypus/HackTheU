@@ -1,1 +1,49 @@
+<button (click)="find()">Find</button>
+<select *ngIf="listings"
+        class="species-select"
+        placeholder="Select species"
+        [(ngModel)]="species"
+        (change)="changeSpecies($event.target.value)">
+  <option>Dog</option>
+  <option>Cat</option>
+</select>
+<div *ngIf="listings" class="center">
+  <table>
+    <tr>
+      <td></td>
+      <td class="right-align">Name:</td>
+      <td class="pet-td">{{listings[currentIndex].name}}</td>
+      <td class="right-align">Age:</td>
+      <td class="pet-td">{{listings[currentIndex].age}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="pet-td right-align">
+        <img src="app/view/arrow-left.png"
+             style="width: 15px"
+             *ngIf="currentIndex > 0"
+             (click)="currentIndex = currentIndex - 1"/>
+      </td>
+      <td class="right-align">Species:</td>
+      <td class="pet-td">{{listings[currentIndex].species}}</td>
+      <td class="right-align">Breed:</td>
+      <td class="pet-td">{{listings[currentIndex].breed}}</td>
+      <td class="pet-td">
+        <img src="app/view/arrow-right.png"
+             style="width: 15px"
+             *ngIf="currentIndex < listings.length - 1"
+             (click)="currentIndex = currentIndex + 1"/>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="right-align">Weight:</td>
+      <td class="pet-td">{{listings[currentIndex].weight}}</td>
+      <td class="right-align">Photo:</td>
+      <td class="pet-td">{{listings[currentIndex].photo}}</td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
 

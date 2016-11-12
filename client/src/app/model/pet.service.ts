@@ -9,12 +9,13 @@ export class PetService {
   constructor(private http: Http) {
   }
 
-  getPet(id: string): Observable<Pet> {
+  find(id: string): Observable<Pet[]> {
     let url: string = '' + id;
     return this.http.get(url)
-      .map(this.parsePet)
-      .retryWhen(error => error.delay(1000)).timeout(3000)
-      .catch(err => Observable.of(new Pet('', '', '', '', '', '')));
+      .map(this.parsePet).catch(err => Observable.of([
+        new Pet('Rascal', '1', 'Dog', 'Cocker Spaniel', '50', ''),
+        new Pet('Snickers', '2', 'Cat', 'Tabby', '25', '')
+      ]));
   }
 
   postPet(id: string, pet: Pet): Observable<string> {
@@ -30,9 +31,14 @@ export class PetService {
     }).map(this.parseResult).catch(err => Observable.of(''));
   }
 
-  parsePet(response: Response): Pet {
+  parsePet(response: Response): Pet[] {
     let items = response.json();
-    return new Pet(items.name, items.age, items.species, items.breed, items.weight, items.photo);
+    let result: Pet[] = [];
+
+    for (let item of items)
+      result.push(new Pet(item.name, item.age, item.species, item.breed, item.weight, item.photo));
+
+    return result;
   }
 
   parseResult(response: Response): string {

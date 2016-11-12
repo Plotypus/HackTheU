@@ -1,0 +1,13 @@
+.pet-td {
+  min-width: 125px;
+  padding: 0 10px 0 10px;
+}
+
+.message {
+  color: red;
+}
+
+.right-align {
+  text-align: right;
+  font-weight: bold;
+}
