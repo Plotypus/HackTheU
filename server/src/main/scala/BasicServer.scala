@@ -1,6 +1,7 @@
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
+import org.bson.types.ObjectId
 import org.mongodb.scala.{MongoClient, MongoDatabase}
 
 import scala.io.StdIn
@@ -13,11 +14,17 @@ object BasicServer {
 
     val databaseIP = args(0)
     val database = args(1)
-    //val mongoDatabase = new DatabaseInstance(databaseIP, database)
-
+    val mongoDatabase = new DatabaseInstance(databaseIP, database)
 
     implicit val actorSystem = ActorSystem("hacktheu-system")
     implicit val actorMaterializer = ActorMaterializer()
+
+    mongoDatabase.addUser("newuser", "newpassword", "newemail") match {
+      case None => ()
+      case Some(UserID(id)) => mongoDatabase.getUser(id)
+    }
+    //println(new ObjectId("58274c647326944f0c8a0cea") == new ObjectId("58274c647326944f0c8a0cea"))
+    //println(mongoDatabase.getUser("58274c647326944f0c8a0cea"))
 
     val interface = "localhost"
     val port = 8080
@@ -49,7 +56,7 @@ object BasicServer {
     StdIn.readLine()
 
     import actorSystem.dispatcher
-    //mongoDatabase.closeConnection()
+    mongoDatabase.closeConnection()
     binding.flatMap(_.unbind()).onComplete(_ => actorSystem.shutdown())
     println("Server is shut down...")
   }
