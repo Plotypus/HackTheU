@@ -1,66 +1,73 @@
-import akka.actor.ActorSystem
-import akka.http.scaladsl.Http
-import akka.stream.ActorMaterializer
+import akka.actor.{Actor, ActorSystem, Props}
+import akka.io.IO
+import akka.pattern.ask
+import akka.util.Timeout
 import org.bson.types.ObjectId
-import org.mongodb.scala.{MongoClient, MongoDatabase}
 
-import scala.io.StdIn
+import scala.concurrent.duration._
+import spray.can.Http
+import spray.httpx.SprayJsonSupport._
+import spray.json.DefaultJsonProtocol._
+import spray.routing.HttpService
+
+import scala.concurrent.{Await, Future}
+import scala.collection.mutable
 
 object BasicServer {
+  var mongoDatabase: Option[DatabaseInstance] = None
+
   def main(args: Array[String]): Unit = {
-    if (args.length != 2) {
-      throw new IllegalArgumentException("Expected 2 arguments. Got: " + args.length)
+    mongoDatabase = Some(new DatabaseInstance(args(0), args(1)))
+  }
+
+  val interface = "localhost"
+  val port = 8080
+
+  implicit val actorSystem = ActorSystem("hacktheu-system")
+
+  implicit val timeout = Timeout(5.seconds)
+
+  val routeActor = actorSystem.actorOf(Props[RouteActor])
+
+  IO(Http) ? Http.Bind(routeActor, interface, port)
+}
+
+class RouteActor extends Actor with HttpService {
+  def db(): DatabaseInstance = {
+    BasicServer.mongoDatabase match {
+      case Some(database) => database
+      case None => throw new Exception("no database")
     }
+  }
 
-    val databaseIP = args(0)
-    val database = args(1)
-    val mongoDatabase = new DatabaseInstance(databaseIP, database)
+  def receive = runRoute(route)
 
-    implicit val actorSystem = ActorSystem("hacktheu-system")
-    implicit val actorMaterializer = ActorMaterializer()
+  def actorRefFactory = context
 
-    mongoDatabase.addUser("newuser", "newpassword", "newemail") match {
-      case None => ()
-      case Some(UserID(id)) => mongoDatabase.getUser(id)
-    }
-    //println(new ObjectId("58274c647326944f0c8a0cea") == new ObjectId("58274c647326944f0c8a0cea"))
-    //println(mongoDatabase.getUser("58274c647326944f0c8a0cea"))
-
-    val interface = "localhost"
-    val port = 8080
-
-    import akka.http.scaladsl.server.Directives._
-
-    val route = {
-      pathEndOrSingleSlash {
-        complete("under construction")
-      } ~
-      path("users" / IntNumber) { userID =>
-        pathEnd {
-          get {
-            complete("users / " + userID)
-          }
+  val route = {
+    pathEndOrSingleSlash {
+      complete("under construction")
+    } ~
+    path("listings" / Segment) { userId =>
+      get {
+        complete(db().getListingsForUser(userId).toString)
+      }
+    } ~
+    path("users" / Segment) { userID =>
+      pathEnd {
+        get {
+          complete("users / " + userID)
         }
-      } ~
-      path("pets" / IntNumber) { userID =>
-        pathEnd {
-          get {
-            complete("pets / " + userID)
-          }
+      }
+    } ~
+    path("pets" / Segment) { userID =>
+      pathEnd {
+        get {
+          complete("pets / " + userID)
         }
       }
     }
-
-    val binding = Http().bindAndHandle(route, interface, port)
-    println(s"Server is now online at http://$interface:$port\nPress RETURN to stop...")
-    StdIn.readLine()
-
-    import actorSystem.dispatcher
-    mongoDatabase.closeConnection()
-    binding.flatMap(_.unbind()).onComplete(_ => actorSystem.shutdown())
-    println("Server is shut down...")
   }
-
 }
 
 
