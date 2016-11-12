@@ -1,0 +1,26 @@
+/*Colors
+#F98866
+#FF420E
+#80BD9E
+#89DA59
+*/
+
+button {
+  background-color: #F98866;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.message{
+  text-align: center;
+  font-size: 12px;
+  color:red;
+  background-color: #FF420E;
+}
