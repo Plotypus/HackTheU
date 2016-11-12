@@ -7,8 +7,11 @@
   <option>Dog</option>
   <option>Cat</option>
 </select>
-<div *ngIf="listings" class="center">
-  <table>
+<div *ngIf="listings">
+  <div class="center">
+  <img *ngIf="listings[currentIndex].species == 'Dog'" class="profile-image" src="app/view/dog.jpg"/>
+  <img *ngIf="listings[currentIndex].species == 'Cat'" class="profile-image" src="app/view/cat.jpg"/>
+  <table class="center">
     <tr>
       <td></td>
       <td class="right-align">Name:</td>
@@ -20,7 +23,7 @@
     <tr>
       <td class="pet-td right-align">
         <img src="app/view/arrow-left.png"
-             style="width: 15px"
+             style="width: 15px; background-color: white; border-radius: 2px;"
              *ngIf="currentIndex > 0"
              (click)="currentIndex = currentIndex - 1"/>
       </td>
@@ -30,7 +33,7 @@
       <td class="pet-td">{{listings[currentIndex].breed}}</td>
       <td class="pet-td">
         <img src="app/view/arrow-right.png"
-             style="width: 15px"
+             style="width: 15px; background-color: white; border-radius: 2px;"
              *ngIf="currentIndex < listings.length - 1"
              (click)="currentIndex = currentIndex + 1"/>
       </td>
@@ -44,4 +47,5 @@
       <td></td>
     </tr>
   </table>
+  </div>
 </div>
