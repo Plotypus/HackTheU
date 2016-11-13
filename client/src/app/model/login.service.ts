@@ -6,6 +6,7 @@ import {User} from "./user";
 @Injectable()
 export class LoginService {
   user: string = '';
+  host: string = 'http://155.99.150.195:8080';
 
   constructor(private http: Http) {
   }
@@ -16,7 +17,7 @@ export class LoginService {
   }
 
   register(user: User): Observable<string> {
-    let url: string = '';
+    let url: string = this.host + '/register';
     return this.http.post(url, {
       'username': user.username,
       'password': user.password,
@@ -26,9 +27,9 @@ export class LoginService {
   }
 
   login(username: string, password: string): Observable<string> {
-    let url: string = '';
+    let url: string = this.host + '/login';
     return this.http.post(url, {'username': username, 'password': password})
-      .map(response => response.text()).catch(err => Observable.of(''));
+      .map(response => response.text()).catch(err => Observable.of('999'));
   }
 
   logout(): Observable<string> {
