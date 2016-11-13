@@ -11,10 +11,7 @@ export class PetService {
 
   host: string = 'http://155.99.150.195:8080';
 
-  testData = [
-    new Pet(1, 'Rascal', '1', 'Dog', 'Cocker Spaniel', '50', ['Dave']),
-    new Pet(2, 'Snickers', '2', 'Cat', 'Tabby', '25', ['Jim', 'Jill'])
-  ];
+  testData = [];
 
   find(id: string): Observable<Pet[]> {
     let url: string = this.host + '/listings/near/' + id;
