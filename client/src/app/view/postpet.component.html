@@ -2,21 +2,22 @@
   Register now to post your dream pet!
 </div>
 <div *ngIf="user">
-  <h3>Your postings</h3>
-  <table>
-    <tr>
-      <th class="interested-table">Name</th>
-      <th class="interested-table">People interested in your pet</th>
-    </tr>
-    <tr *ngFor="let posting of postings">
-      <td>{{posting.name}}</td>
-      <td><span *ngFor="let interested of posting.interested; let i = index">
-        <span *ngIf="i < posting.interested.length - 1">{{interested + ', '}}</span>
-        <span *ngIf="i == posting.interested.length - 1">{{interested}}</span>
-      </span></td>
-    </tr>
-  </table><br><br>
-  <hr style="color: white;"><br><br>
+  <div *ngIf="postings">
+    <h3>Your postings</h3>
+    <table>
+      <tr>
+        <th class="interested-table">Name</th>
+        <th class="interested-table">People interested in your pet</th>
+      </tr>
+      <tr *ngFor="let posting of postings">
+        <td>{{posting}}</td>
+        <td>{{posting}}</td>
+      </tr>
+    </table>
+    <br><br>
+  </div>
+  <hr style="color: white;">
+  <br><br>
 
   <h3 style="color: #AAAAAA ">New Post</h3>
   <table>

@@ -2,34 +2,35 @@
   Register now to find your dream pet!
 </div>
 <div *ngIf="user">
-  <h3>Pets you're interested in</h3>
-  <div *ngFor="let interest of interested">
-    {{interest.name}}
+  <div *ngIf="interested">
+    <h3>Pets you're interested in</h3>
+    <div *ngFor="let interest of interested">
+      {{interest}}
+    </div>
+    <br>
   </div>
-  <br>
 
   <button (click)="find()">Find</button>
   <select *ngIf="listings"
           class="species-select"
           placeholder="Select species"
-          [(ngModel)]="species"
-          (change)="changeSpecies($event.target.value)">
+          [(ngModel)]="species">
     <option>Dog</option>
     <option>Cat</option>
   </select>
   <div *ngIf="listings">
     <div class="center">
-      <img *ngIf="listings[currentIndex].species == 'Dog'" class="profile-image" src="app/view/dog.jpg"
+      <img *ngIf="currentIndex % 2 == 0" class="profile-image" src="app/view/dog.jpg"
            (click)="sendInterest()"/>
-      <img *ngIf="listings[currentIndex].species == 'Cat'" class="profile-image" src="app/view/cat.jpg"
+      <img *ngIf="currentIndex % 2 == 1" class="profile-image" src="app/view/cat.jpg"
            (click)="sendInterest()"/>
       <table class="center">
         <tr>
           <td></td>
-          <td class="right-align">Name:</td>
-          <td class="pet-td">{{listings[currentIndex].name}}</td>
+          <td class="right-align">Id:</td>
+          <td class="pet-td">{{listings[currentIndex]}}</td>
           <td class="right-align">Age:</td>
-          <td class="pet-td">{{listings[currentIndex].age}}</td>
+          <td class="pet-td">{{listings[currentIndex]}}</td>
           <td></td>
         </tr>
         <tr>
@@ -40,9 +41,9 @@
                  (click)="currentIndex = currentIndex - 1"/>
           </td>
           <td class="right-align">Species:</td>
-          <td class="pet-td">{{listings[currentIndex].species}}</td>
+          <td class="pet-td">{{listings[currentIndex]}}</td>
           <td class="right-align">Breed:</td>
-          <td class="pet-td">{{listings[currentIndex].breed}}</td>
+          <td class="pet-td">{{listings[currentIndex]}}</td>
           <td class="pet-td">
             <img src="app/view/arrow-right.png"
                  style="width: 15px; background-color: white; border-radius: 2px;"
@@ -53,7 +54,7 @@
         <tr>
           <td></td>
           <td class="right-align">Weight:</td>
-          <td class="pet-td">{{listings[currentIndex].weight}}</td>
+          <td class="pet-td">{{listings[currentIndex]}}</td>
           <td class="right-align">Other:</td>
           <td class="pet-td"></td>
           <td></td>

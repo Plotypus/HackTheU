@@ -13,7 +13,7 @@ import {LoginService} from './model/login.service';
 export class PostPetComponent {
   user: string;
   message: string;
-  postings: Pet[];
+  postings: string[];
   pet: Pet = new Pet(0, '', '', '', '', '', []);
 
   constructor(private petService: PetService, private router: Router, private loginService: LoginService) {

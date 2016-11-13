@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {LoginService} from "./model/login.service";
 import {PetService} from "./model/pet.service";
-import {Pet} from "./model/pet";
 import {Router} from '@angular/router';
 
 @Component({
@@ -15,9 +14,9 @@ export class FindPetComponent {
   user: string;
   species: string;
 
-  listings: Pet[];
-  interested: Pet[];
-  totalListings: Pet[];
+  listings: string[];
+  interested: string[];
+  totalListings: string[];
   currentIndex: number = 0;
 
   constructor(private loginService: LoginService, private petService: PetService, private router: Router) {
@@ -29,13 +28,8 @@ export class FindPetComponent {
     this.petService.find(this.user).subscribe(response => this.totalListings = this.listings = response);
   }
 
-  changeSpecies(species) {
-    this.currentIndex = 0;
-    this.listings = this.totalListings.filter(pet => pet.species == species);
-  }
-
   sendInterest() {
-    this.petService.interested(this.user, this.listings[this.currentIndex].id.toString())
+    this.petService.interested(this.user, this.listings[this.currentIndex])
       .subscribe(response => this.interested.push(this.listings[this.currentIndex]));
   }
 }

@@ -11,24 +11,22 @@ export class PetService {
 
   host: string = 'http://155.99.150.195:8080';
 
-  testData = [];
-
-  find(id: string): Observable<Pet[]> {
+  find(id: string): Observable<string[]> {
     let url: string = this.host + '/listings/near/' + id;
     return this.http.get(url)
-      .map(this.parsePet).catch(err => Observable.of(this.testData));
+      .map(this.parsePet).catch(err => Observable.of([]));
   }
 
-  getInterested(id: string): Observable<Pet[]> {
-    let url: string = this.host + '/listings/interested' + id;
+  getInterested(id: string): Observable<string[]> {
+    let url: string = this.host + '/listings/interested/' + id;
     return this.http.get(url)
-      .map(this.parsePet).catch(err => Observable.of(this.testData));
+      .map(this.parsePet).catch(err => Observable.of([]));
   }
 
-  getPostings(id: string): Observable<Pet[]> {
+  getPostings(id: string): Observable<string[]> {
     let url: string = this.host + '/listings/' + id;
     return this.http.get(url)
-      .map(this.parsePet).catch(err => Observable.of(this.testData));
+      .map(this.parsePet).catch(err => Observable.of([]));
   }
 
   interested(id: string, listingId: string): Observable<string> {
@@ -38,23 +36,22 @@ export class PetService {
   }
 
   postPet(id: string, pet: Pet): Observable<string> {
-    let url: string = this.host + '/listing/' + id;
+    let url: string = this.host + '/listing/add/' + id;
     return this.http.post(url, {
       'name': pet.name,
       'age': pet.age,
       'species': pet.species,
       'breed': pet.breed,
-      'weight': pet.weight,
-      'interested': pet.interested
+      'weight': pet.weight
     }).map(this.parseResult).catch(err => Observable.of(''));
   }
 
-  parsePet(response: Response): Pet[] {
+  parsePet(response: Response): string[] {
     let items = response.json();
-    let result: Pet[] = [];
+    let result: string[] = [];
 
     for (let item of items)
-      result.push(new Pet(item.id, item.name, item.age, item.species, item.breed, item.weight, item.interested));
+      result.push(item.toString());
 
     return result;
   }
