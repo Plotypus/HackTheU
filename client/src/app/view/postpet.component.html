@@ -1,28 +1,49 @@
-<h3>Pet Info</h3>
-<table>
-  <tr>
-    <td><label>Name</label></td>
-    <td><input [(ngModel)]="pet.name"/></td>
-    <td><label>Age</label></td>
-    <td><input [(ngModel)]="pet.age"/></td>
-  </tr>
-  <tr>
-    <td><label>Species</label></td>
-    <td><input [(ngModel)]="pet.species"/></td>
-    <td><label>Breed</label></td>
-    <td><input [(ngModel)]="pet.breed"/></td>
-  </tr>
-  <tr>
-    <td><label>Weight</label></td>
-    <td><input [(ngModel)]="pet.weight"/></td>
-    <td><label>Photo</label></td>
-    <td><input [(ngModel)]="pet.photo"/></td>
-  </tr>
-  <tr></tr>
-  <tr>
-    <td>
-      <button (click)="postPet()">Post</button>
-    </td>
-  </tr>
-</table>
-<div class="message">{{message}}</div>
+<div *ngIf="!user">
+  Register now to post your dream pet!
+</div>
+<div *ngIf="user">
+  <h3>Your postings</h3>
+  <table>
+    <tr>
+      <th class="interested-table">Name</th>
+      <th class="interested-table">People interested in your pet</th>
+    </tr>
+    <tr *ngFor="let posting of postings">
+      <td>{{posting.name}}</td>
+      <td><span *ngFor="let interested of posting.interested; let i = index">
+        <span *ngIf="i < posting.interested.length - 1">{{interested + ', '}}</span>
+        <span *ngIf="i == posting.interested.length - 1">{{interested}}</span>
+      </span></td>
+    </tr>
+  </table><br><br>
+  <hr style="color: white;"><br><br>
+
+  <h3>New Post</h3>
+  <table>
+    <tr>
+      <td><label>Name</label></td>
+      <td><input [(ngModel)]="pet.name"/></td>
+      <td><label>Age</label></td>
+      <td><input [(ngModel)]="pet.age"/></td>
+    </tr>
+    <tr>
+      <td><label>Species</label></td>
+      <td><input [(ngModel)]="pet.species"/></td>
+      <td><label>Breed</label></td>
+      <td><input [(ngModel)]="pet.breed"/></td>
+    </tr>
+    <tr>
+      <td><label>Weight</label></td>
+      <td><input [(ngModel)]="pet.weight"/></td>
+      <td><label>Other</label></td>
+      <td><input/></td>
+    </tr>
+    <tr></tr>
+    <tr>
+      <td>
+        <button (click)="postPet()">Post</button>
+      </td>
+    </tr>
+  </table>
+  <div class="message">{{message}}</div>
+</div>

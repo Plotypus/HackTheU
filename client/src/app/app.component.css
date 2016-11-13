@@ -1,3 +1,12 @@
+div {
+  color: white;
+}
+
+.interested-table {
+  border: 1px solid white;
+  width: 300px;
+}
+
 .top-bar {
   text-align: center;
   padding-top: 150px;
@@ -7,6 +16,10 @@
   background-repeat: no-repeat;
   background-position-x: 50%;
   margin-bottom: 10px;
+}
+
+h1, h2, h3 {
+  color: white;
 }
 
 .center {
@@ -46,10 +59,6 @@ nav {
   border-radius: 2px;
 }
 
-input {
-
-}
-
 button {
   color: white;
   background-color: #404040;
@@ -68,7 +77,7 @@ button {
 }
 
 .message {
-  color: red;
+  color: #80BD9E ;
 }
 
 .right-align {

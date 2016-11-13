@@ -1,51 +1,64 @@
-<button (click)="find()">Find</button>
-<select *ngIf="listings"
-        class="species-select"
-        placeholder="Select species"
-        [(ngModel)]="species"
-        (change)="changeSpecies($event.target.value)">
-  <option>Dog</option>
-  <option>Cat</option>
-</select>
-<div *ngIf="listings">
-  <div class="center">
-  <img *ngIf="listings[currentIndex].species == 'Dog'" class="profile-image" src="app/view/dog.jpg"/>
-  <img *ngIf="listings[currentIndex].species == 'Cat'" class="profile-image" src="app/view/cat.jpg"/>
-  <table class="center">
-    <tr>
-      <td></td>
-      <td class="right-align">Name:</td>
-      <td class="pet-td">{{listings[currentIndex].name}}</td>
-      <td class="right-align">Age:</td>
-      <td class="pet-td">{{listings[currentIndex].age}}</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td class="pet-td right-align">
-        <img src="app/view/arrow-left.png"
-             style="width: 15px; background-color: white; border-radius: 2px;"
-             *ngIf="currentIndex > 0"
-             (click)="currentIndex = currentIndex - 1"/>
-      </td>
-      <td class="right-align">Species:</td>
-      <td class="pet-td">{{listings[currentIndex].species}}</td>
-      <td class="right-align">Breed:</td>
-      <td class="pet-td">{{listings[currentIndex].breed}}</td>
-      <td class="pet-td">
-        <img src="app/view/arrow-right.png"
-             style="width: 15px; background-color: white; border-radius: 2px;"
-             *ngIf="currentIndex < listings.length - 1"
-             (click)="currentIndex = currentIndex + 1"/>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td class="right-align">Weight:</td>
-      <td class="pet-td">{{listings[currentIndex].weight}}</td>
-      <td class="right-align">Photo:</td>
-      <td class="pet-td">{{listings[currentIndex].photo}}</td>
-      <td></td>
-    </tr>
-  </table>
+<div *ngIf="!user">
+  Register now to find your dream pet!
+</div>
+<div *ngIf="user">
+  <h3>Pets you're interested in</h3>
+  <div *ngFor="let interest of interested">
+    {{interest.name}}
+  </div>
+  <br>
+
+  <button (click)="find()">Find</button>
+  <select *ngIf="listings"
+          class="species-select"
+          placeholder="Select species"
+          [(ngModel)]="species"
+          (change)="changeSpecies($event.target.value)">
+    <option>Dog</option>
+    <option>Cat</option>
+  </select>
+  <div *ngIf="listings">
+    <div class="center">
+      <img *ngIf="listings[currentIndex].species == 'Dog'" class="profile-image" src="app/view/dog.jpg"
+           (click)="sendInterest()"/>
+      <img *ngIf="listings[currentIndex].species == 'Cat'" class="profile-image" src="app/view/cat.jpg"
+           (click)="sendInterest()"/>
+      <table class="center">
+        <tr>
+          <td></td>
+          <td class="right-align">Name:</td>
+          <td class="pet-td">{{listings[currentIndex].name}}</td>
+          <td class="right-align">Age:</td>
+          <td class="pet-td">{{listings[currentIndex].age}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="pet-td right-align">
+            <img src="app/view/arrow-left.png"
+                 style="width: 15px; background-color: white; border-radius: 2px;"
+                 *ngIf="currentIndex > 0"
+                 (click)="currentIndex = currentIndex - 1"/>
+          </td>
+          <td class="right-align">Species:</td>
+          <td class="pet-td">{{listings[currentIndex].species}}</td>
+          <td class="right-align">Breed:</td>
+          <td class="pet-td">{{listings[currentIndex].breed}}</td>
+          <td class="pet-td">
+            <img src="app/view/arrow-right.png"
+                 style="width: 15px; background-color: white; border-radius: 2px;"
+                 *ngIf="currentIndex < listings.length - 1"
+                 (click)="currentIndex = currentIndex + 1"/>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="right-align">Weight:</td>
+          <td class="pet-td">{{listings[currentIndex].weight}}</td>
+          <td class="right-align">Other:</td>
+          <td class="pet-td"></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>
