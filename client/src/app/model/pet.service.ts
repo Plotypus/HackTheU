@@ -9,24 +9,26 @@ export class PetService {
   constructor(private http: Http) {
   }
 
+  testData = ['153', '486', '739'];
+
   host: string = 'http://155.99.150.195:8080';
 
   find(id: string): Observable<string[]> {
     let url: string = this.host + '/listings/near/' + id;
     return this.http.get(url)
-      .map(this.parsePet).catch(err => Observable.of([]));
+      .map(this.parsePet).catch(err => Observable.of(this.testData));
   }
 
   getInterested(id: string): Observable<string[]> {
     let url: string = this.host + '/listings/interested/' + id;
     return this.http.get(url)
-      .map(this.parsePet).catch(err => Observable.of([]));
+      .map(this.parsePet).catch(err => Observable.of(this.testData));
   }
 
   getPostings(id: string): Observable<string[]> {
     let url: string = this.host + '/listings/' + id;
     return this.http.get(url)
-      .map(this.parsePet).catch(err => Observable.of([]));
+      .map(this.parsePet).catch(err => Observable.of(this.testData));
   }
 
   interested(id: string, listingId: string): Observable<string> {
